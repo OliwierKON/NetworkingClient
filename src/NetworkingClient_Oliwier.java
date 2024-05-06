@@ -5,7 +5,7 @@ public class NetworkingClient_Oliwier{
     public static void main(String args[]){
 
         Socket client = null;
-
+        // default port we are going to use
         int portnumber = 4444;
         if (args.length>=1){
              portnumber = Integer.parseInt(args[0]);
@@ -13,29 +13,29 @@ public class NetworkingClient_Oliwier{
             for (int i=0; i <10; i++) {
                 try{
                   String msg =" ";
-
+                    //create client socket
                   client = new Socket(InetAddress.getLocalHost(), portnumber);
                     System.out.println("Client socket is created "+ client);
-
+                        //create an input stream of the client socket
                     OutputStream clientOut = client.getOutputStream();
                     PrintWriter pw = new PrintWriter(clientOut, true);
-
+                        // Create an input stream of the client socket.
                     InputStream clientIn= client.getInputStream();
                     BufferedReader br = new BufferedReader(new InputStreamReader(clientIn));
-
+                    // create input bufferedreader for a standard input.
                         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 
                     System.out.println("Enter your name. Type Bye to exit. ");
-
+                    // read data from standard input devide and write it to the output stream of the client server
                     msg = stdIn.readLine().trim();
                     pw.println(msg);
-
+                        //read data from the input stream of the client socket.
                     System.out.println("Message returned from the server = "+ br.readLine());
 
                     pw.close();
                     br.close();
                     client.close();
-
+                    //stop the operation
                     if (msg.equalsIgnoreCase("Bye")){
                         break;
                     }
